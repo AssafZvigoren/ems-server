@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import firebase from 'firebase/app'
+import firebase from 'firebase'
 import { LoginProps } from '../models/users/loginProps'
 import { firebaseConfig } from './firebaseConfig'
 
@@ -12,7 +12,7 @@ export class FirebaseHandler {
       FirebaseHandler._app = firebase.initializeApp(firebaseConfig)
     
     if (!FirebaseHandler._auth) 
-      FirebaseHandler._auth = FirebaseHandler._app.auth()
+      FirebaseHandler._auth = firebase.auth(FirebaseHandler._app)
   }
 
   public static checkAuthentication(req: Request, res: Response, next: NextFunction): void {
@@ -25,6 +25,10 @@ export class FirebaseHandler {
 
   public static login(loginProps: LoginProps): Promise<firebase.auth.UserCredential> {
     return this._auth.signInWithEmailAndPassword(loginProps.email, loginProps.password)
+  }
+
+  public static register(loginProps: LoginProps): Promise<firebase.auth.UserCredential> {
+    return this._auth.createUserWithEmailAndPassword(loginProps.email, loginProps.password)
   }
 
   public static logout(): Promise<void> {

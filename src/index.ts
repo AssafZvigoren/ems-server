@@ -9,13 +9,14 @@ class Server {
 
   constructor() {
     this.app = express()
+    this.config()
     this.routes()
-    this.port = 3000
+    this.port = 9000
   }
 
   public config(): void {
-    this.app.use(express.json())
     this.app.use(express.urlencoded({extended: false}))
+    this.app.use(express.json())
     this.app.use(compression())
     this.app.use(cors())
   }

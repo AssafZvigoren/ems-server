@@ -34,7 +34,7 @@ export class UsersController {
     const loginProps: LoginProps = req.body
     FirebaseHandler.register(loginProps)
       .then((user: firebase.auth.UserCredential) => {
-        res.status(200).json({displayName: user.user?.displayName})
+        res.status(200).json({user: user.user})
       })
       .catch(err => {
         switch (err.code) {
@@ -56,6 +56,11 @@ export class UsersController {
             break;
         }
       })
+  }
+
+  public async isAuthenticated(req: Request, res: Response): Promise<void> {    
+    const user = FirebaseHandler.getCurrentUser()
+    res.status(200).json(user)
   }
 
   public async logout (req: Request, res: Response): Promise<void> {

@@ -18,9 +18,9 @@ export class FirebaseHandler {
   public static checkAuthentication(req: Request, res: Response, next: NextFunction): void {
     if (FirebaseHandler._auth.currentUser) {
       next()
+    } else {
+      res.redirect('/')
     }
-
-    res.status(401).json({status: "error", code: "unauthorized"})
   }
 
   public static login(loginProps: LoginProps): Promise<firebase.auth.UserCredential> {
@@ -33,6 +33,10 @@ export class FirebaseHandler {
 
   public static logout(): Promise<void> {
     return this._auth.signOut()
+  }
+
+  public static getCurrentUser(): any {
+    return {email: FirebaseHandler._auth.currentUser?.email, uid: FirebaseHandler._auth.currentUser?.uid}
   }
 }
 

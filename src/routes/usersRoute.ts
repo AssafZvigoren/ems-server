@@ -12,9 +12,10 @@ export class UsersRoute {
   }
 
   routes(): void {
+    this.router.get('/isAuthenticated', FirebaseHandler.checkAuthentication, this.usersController.isAuthenticated)
+    this.router.get('/getAllUsers', FirebaseHandler.checkAuthentication, this.usersController.getAllUsers)
     this.router.post('/login', this.usersController.login)
     this.router.post('/register', this.usersController.register)
     this.router.post('/logout', FirebaseHandler.checkAuthentication, this.usersController.logout)
-    this.router.get('/getAllUsers', FirebaseHandler.checkAuthentication, this.usersController.getAllUsers)
   }
 }

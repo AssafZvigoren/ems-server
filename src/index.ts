@@ -1,17 +1,20 @@
 import express from 'express'
 import compression from 'compression'
 import cors from 'cors'
+import serverless from 'serverless-http'
 import { UsersRoute } from './routes/usersRoute'
 
 class Server {
   public app: express.Application
   public port: number
+  public appServerLess: serverless.Handler
 
   constructor() {
     this.app = express()
     this.config()
     this.routes()
     this.port = 9000
+    this.appServerLess = serverless(this.app)
   }
 
   public config(): void {
@@ -38,3 +41,5 @@ class Server {
 const server = new Server()
 
 server.start()
+
+module.exports.handler = server.appServerLess

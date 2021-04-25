@@ -11,7 +11,7 @@ class Server {
     this.app = express()
     this.config()
     this.routes()
-    this.port = 9000
+    this.port = 5000
   }
 
   public config(): void {

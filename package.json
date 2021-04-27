@@ -6,7 +6,8 @@
   "scripts": {
     "start:dev": "nodemon",
     "build:dev": "rimraf ./build && tsc",
-    "build": "tsc",
+    "build": "netlify-lambda build src",
+    "ts-check": "tsc --noEmit --lib ES2015 ./src/*.ts",
     "start": "node build/index.js",
     "lint": "eslint . --ext .ts"
   },

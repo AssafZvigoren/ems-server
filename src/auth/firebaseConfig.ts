@@ -1,9 +1,12 @@
+import {config} from 'dotenv'
+config()
+
 export const firebaseConfig = {
-  apiKey: "AIzaSyAkzWdg60NsbwEBCBPPoo8DtByrR6YHK5w",
-  authDomain: "ems-project-11fae.firebaseapp.com",
-  projectId: "ems-project-11fae",
-  storageBucket: "ems-project-11fae.appspot.com",
-  messagingSenderId: "751698937524",
-  appId: "1:751698937524:web:61eabc80dcf15848e5f9e1",
-  measurementId: "G-MF5H622NER"
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID
 };

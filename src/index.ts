@@ -23,9 +23,6 @@ class Server {
 
   public routes(): void {
     this.app.use('/api/users', new UsersRoute().router)
-    this.app.get('/', (req, res) => {
-      res.status(200).send('alive')
-    })
   }
 
   public start(): void {

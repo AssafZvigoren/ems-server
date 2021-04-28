@@ -13,7 +13,7 @@ class Server {
     this.app = express()
     this.config()
     this.routes()
-    this.port = 9000
+    this.port = process.env.PORT ? Number(process.env.PORT) : 9000
     this.appServerLess = serverless(this.app)
   }
 

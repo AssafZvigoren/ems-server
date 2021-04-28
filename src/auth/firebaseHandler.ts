@@ -35,8 +35,11 @@ export class FirebaseHandler {
     return this._auth.signOut()
   }
 
-  public static getCurrentUser(): any {
-    return {email: FirebaseHandler._auth.currentUser?.email, uid: FirebaseHandler._auth.currentUser?.uid}
+  public static getCurrentUser(): {email: string | null, uid: string | null} | null {
+    if (!this._auth.currentUser) {
+      return null
+    }
+    return {email: this._auth.currentUser?.email, uid: this._auth.currentUser?.uid}
   }
 }
 

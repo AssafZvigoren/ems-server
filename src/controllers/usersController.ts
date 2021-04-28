@@ -60,7 +60,11 @@ export class UsersController {
 
   public async isAuthenticated(req: Request, res: Response): Promise<void> {    
     const user = FirebaseHandler.getCurrentUser()
-    res.status(200).json(user)
+
+    if (user)
+      res.status(200).json(user)
+    else 
+      res.status(400).send('user not authenticated')
   }
 
   public async logout (req: Request, res: Response): Promise<void> {

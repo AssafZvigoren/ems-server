@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import firebase from 'firebase'
 import { LoginProps } from '../models/users/loginProps'
+import { UserProfile } from '../models/users/userProfile'
 import { firebaseConfig } from './firebaseConfig'
 
 export class FirebaseHandler {
@@ -40,6 +41,17 @@ export class FirebaseHandler {
       return null
     }
     return {email: this._auth.currentUser?.email, uid: this._auth.currentUser?.uid}
+  }
+
+  public static getUserPofile(): UserProfile {
+    return {
+      displayName: this._auth.currentUser?.displayName ? this._auth.currentUser?.displayName : "",
+      photoURL: this._auth.currentUser?.photoURL ? this._auth.currentUser?.photoURL : "",
+    }
+  }
+
+  public static updateUserProfile(userProfile: UserProfile): Promise<void> | undefined {
+    return this._auth.currentUser?.updateProfile({...userProfile})
   }
 }
 

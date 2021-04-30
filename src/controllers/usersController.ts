@@ -1,6 +1,7 @@
 import {FirebaseHandler} from '../auth/firebaseHandler'
 import {Request, Response, NextFunction} from 'express'
 import { LoginProps } from '../models/users/loginProps'
+import {UserProfile} from '../models/users/userProfile'
 import firebase from 'firebase'
 
 export class UsersController {
@@ -74,5 +75,21 @@ export class UsersController {
 
   public async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
     console.log();
+  }
+
+  public async getUserProfile(req: Request, res: Response): Promise<void> {
+    const user: UserProfile = FirebaseHandler.getUserPofile()
+    res.status(200).json(user)
+  }
+
+  public async updateUserProfile(req: Request, res: Response): Promise<void> {
+    const profileData = req.body
+    try {
+      await FirebaseHandler.updateUserProfile(profileData)
+      res.status(200).send()
+    } catch (err) {
+      console.error({...err})
+      res.status(500).send()
+    }
   }
 }

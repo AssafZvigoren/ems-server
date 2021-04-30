@@ -18,5 +18,6 @@ export class UsersRoute {
     this.router.post('/login', this.usersController.login)
     this.router.post('/register', this.usersController.register)
     this.router.post('/logout', FirebaseHandler.checkAuthentication, this.usersController.logout)
+    this.router.post('/updateUserProfile', FirebaseHandler.checkAuthentication, this.usersController.updateUserProfile)
   }
 }
